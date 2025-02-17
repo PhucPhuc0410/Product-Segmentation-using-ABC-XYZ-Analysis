@@ -1,19 +1,27 @@
 # ABC-XYZ Analysis for Product Segmentation
 
+---
+
 ## Overview
+
 This project applies ABC-XYZ Analysis to segment products based on sales performance and demand variability. The analysis helps businesses identify high-value products, optimize inventory, and improve supply chain management.
 
 ## Dataset
-The analysis is performed using the `FactResellerSales` table from the AdventureWorksDW2022 database. This table contains transactional data related to reseller purchases.
 
-**Source:** AdventureWorksDW2022 (Downloadable from Microsoft sample databases)
+The analysis is performed using the `FactResellerSales` and `DimProduct` tables, which contain transactional data related to reseller purchases.
+
+**Source:** `AdventureWorksDW2022` which you can download [here](https://learn.microsoft.com/en-us/sql/samples/adventureworks-install-configure?view=sql-server-ver16&tabs=ssms)
 
 ## Tools Used
+
 - **SQL Server Management Studio (SSMS)** for querying and data processing.
 - **Power BI** for data visualization and insights.
-- **Python** for advanced statistical analysis (optional).
+- **Python** for querying and data processing, and data visualization.
+
+*Even though SQL and Power BI are sufficient for these tasks. However, I incorporated Python to expand the project scope.*
 
 ## Data Cleaning and Preparation
+
 - Removing duplicate transactions.
 - Handling missing values in `SalesAmount` and `OrderDate`.
 - Aggregating sales data per product for meaningful segmentation.
