@@ -15,10 +15,6 @@ The analysis is performed using the `FactResellerSales` and `DimProduct` tables,
 ## Tools Used
 
 - **SQL Server Management Studio (SSMS)** for querying and data processing.
-- **Power BI** for data visualization and insights.
-- **Python** for querying and data processing, and data visualization.
-
-*Even though SQL and Power BI are sufficient for these tasks. However, I incorporated Python to expand the project scope.*
 
 ## Data Cleaning and Preparation
 
@@ -29,9 +25,9 @@ The analysis is performed using the `FactResellerSales` and `DimProduct` tables,
 ## ABC Analysis: Revenue Contribution
 ABC Analysis segments products based on their contribution to total revenue:
 
-1. **Category A**: Top 40% revenue contributors.
-2. **Category B**: Next 40% revenue contributors.
-3. **Category C**: Bottom 20% revenue contributors.
+- **A**: Top 40% revenue contributors.
+- **B**: Next 40% revenue contributors.
+- **C**: Bottom 20% revenue contributors.
 
 ### SQL Implementation:
 ```sql
