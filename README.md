@@ -49,7 +49,6 @@ XYZ Analysis categorizes products based on sales consistency:
 - **Y**: 10% < Coefficient of Variation ≤ 25%.
 - **Z**: Coefficient of Variation > 25%.
 
-### SQL Implementation:
 ```sql
 DROP TABLE IF EXISTS #XYZ_Analysis;
 SELECT 
