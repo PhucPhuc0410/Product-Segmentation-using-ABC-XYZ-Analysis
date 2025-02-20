@@ -22,25 +22,14 @@ The analysis is performed using the `FactResellerSales` and `DimProduct` tables,
 - Handling missing values in `SalesAmount` and `OrderDate`.
 - Aggregating sales data per product for meaningful segmentation.
 
-## ABC Analysis: Revenue Contribution
+## ABC Analysis
 ABC Analysis segments products based on their contribution to total revenue:
 
 - **A**: Top 40% revenue contributors.
 - **B**: Next 40% revenue contributors.
 - **C**: Bottom 20% revenue contributors.
 
-### SQL Implementation:
 ```sql
-DECLARE @Total_sales FLOAT;
-SET @Total_sales = (
-    SELECT SUM(SalesAmount) FROM FactResellerSales
-);
-
-DECLARE @Num_of_product FLOAT;
-SET @Num_of_product = (
-    SELECT COUNT(DISTINCT ProductKey) FROM FactResellerSales
-);
-
 DROP TABLE IF EXISTS #Product_Sales;
 SELECT 
     PRO.ProductKey,
@@ -54,27 +43,14 @@ ON FACT.ProductKey = PRO.ProductKey
 GROUP BY PRO.ProductKey, PRO.EnglishProductName;
 ```
 
-## XYZ Analysis: Demand Variability
 XYZ Analysis categorizes products based on sales consistency:
 
-1. **Category X**: Low variability (Coefficient of Variation ≤ 10%).
-2. **Category Y**: Moderate variability (10% < Coefficient of Variation ≤ 25%).
-3. **Category Z**: High variability (> 25%).
+- **X**: Coefficient of Variation ≤ 10%.
+- **Y**: 10% < Coefficient of Variation ≤ 25%.
+- **Z**: Coefficient of Variation > 25%.
 
 ### SQL Implementation:
 ```sql
-DROP TABLE IF EXISTS #Product_Sales_Per_Month;
-SELECT 
-    PRO.ProductKey,
-    PRO.EnglishProductName,
-    YEAR(FACT.OrderDate) AS SalesYear,
-    MONTH(FACT.OrderDate) AS SalesMonth,
-    SUM(FACT.SalesAmount) AS MonthlySales
-INTO #Product_Sales_Per_Month
-FROM FactResellerSales FACT
-JOIN DimProduct PRO ON FACT.ProductKey = PRO.ProductKey
-GROUP BY PRO.ProductKey, PRO.EnglishProductName, YEAR(FACT.OrderDate), MONTH(FACT.OrderDate);
-
 DROP TABLE IF EXISTS #XYZ_Analysis;
 SELECT 
     PRO.ProductKey,
@@ -92,43 +68,15 @@ ON PSPM.ProductKey = PRO.ProductKey
 GROUP BY PRO.ProductKey, PRO.EnglishProductName;
 ```
 
-## Merging ABC and XYZ Analysis
-```sql
-DROP TABLE IF EXISTS #ABC_XYZ_Analysis;
-SELECT
-    ABC.ProductKey,
-    ABC.EnglishProductName,
-    ABC.Cumulative_Percent_Item,
-    ABC.Cumulative_Percent_Revenue,
-    XYZ.STDV_Sales,
-    XYZ.Coefficient_Variation,
-    CASE
-        WHEN ABC.Cumulative_Percent_Revenue <= 40 THEN 'A'
-        WHEN ABC.Cumulative_Percent_Revenue <= 80 THEN 'B'
-        ELSE 'C'
-    END AS ABC_Analysis,
-    CASE
-        WHEN XYZ.Coefficient_Variation <= 10 THEN 'X'
-        WHEN XYZ.Coefficient_Variation <= 25 THEN 'Y'
-        ELSE 'Z'
-    END AS XYZ_Analysis
-INTO #ABC_XYZ_Analysis
-FROM #ABC_Analysis ABC
-JOIN #XYZ_Analysis XYZ
-ON ABC.ProductKey = XYZ.ProductKey;
-
-SELECT * FROM #ABC_XYZ_Analysis;
-```
-
 ## Application
-- **Inventory Optimization**: Ensure availability of high-value, low-variability (AX) products while adjusting stock for high-variability (BZ, CZ) items.
-- **Sales Strategy**: Promote and bundle underperforming products (CZ) with high-revenue items (AX, AY).
-- **Marketing Focus**: Target price-sensitive customers with stable (BX, CX) products and create dynamic pricing for fluctuating (BZ, CZ) items.
+- Ensure availability of **high-volume, stable** (**AX**) products while adjusting stock for **highly fluctuating** (**BZ**, **CZ**) items.
+- Promote and bundle **underperforming** products (**CZ**) with **high-revenue** items (**AX**, **AY**).
+- Target price-sensitive customers with **stable** (**BX**, **CX**) products and implement dynamic pricing for **highly fluctuating** (**BZ**, **CZ**) items.
 
 ## Recommendations
-- **Enhance customer loyalty**: Focus on high-revenue (A) and low-variability (X) products.
-- **Optimize inventory for fluctuating demand**: Adjust stock for (Z) category products.
-- **Improve supply chain planning**: Ensure consistent availability of (AX, BX) products while dynamically managing (CZ) items.
+- Focus on high-revenue (A) and low-variability (X) products.
+- Adjust stock for (Z) category products.
+- Ensure consistent availability of (AX, BX) products while dynamically managing (CZ) items.
 
 ## Limitations
 - Analysis is based on historical data and may not predict future trends.
@@ -137,6 +85,17 @@ SELECT * FROM #ABC_XYZ_Analysis;
 
 If you find this project useful, feel free to ⭐. Your support will be my super motivation ❤️.
 
+---
+
+## References:
+
+- [ABC XYZ Analysis in Inventory Management](https://abcsupplychain.com/abc-xyz-analysis/)
+- [ABC XYZ Analysis for Inventory Management: Example in Excel (Full Tutorial)](https://www.youtube.com/watch?v=-GoYI746kEY)
+
+  ---
+
 📌 **Author:** Nguyễn Hoàng Gia Phúc  
+
 📧 **Contact:** nguyenhoanggiaphucwork@gmail.com
+
 🔗 **LinkedIn:** [Nguyen Hoang Gia Phuc](https://www.linkedin.com/in/nguyenhoanggiaphuc)
