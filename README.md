@@ -68,6 +68,9 @@ GROUP BY PRO.ProductKey, PRO.EnglishProductName;
 ```
 
 ## Application
+
+![HHIG VOULUMN](https://github.com/user-attachments/assets/76424e2a-a17f-42bf-800f-b744253a76f1)
+
 - Ensure availability of **high-volume, stable** (**AX**) products while adjusting stock for **highly fluctuating** (**BZ**, **CZ**) items.
 - Promote and bundle **underperforming** products (**CZ**) with **high-revenue** items (**AX**, **AY**).
 - Target price-sensitive customers with **stable** (**BX**, **CX**) products and implement dynamic pricing for **highly fluctuating** (**BZ**, **CZ**) items.
