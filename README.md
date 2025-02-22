@@ -89,7 +89,7 @@ If you find this project useful, feel free to ⭐. Your support will be my super
 
 ---
 
-## References:
+## References
 
 - [ABC XYZ Analysis in Inventory Management](https://abcsupplychain.com/abc-xyz-analysis/)
 - [ABC XYZ Analysis for Inventory Management: Example in Excel (Full Tutorial)](https://www.youtube.com/watch?v=-GoYI746kEY)
